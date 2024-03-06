@@ -2,16 +2,30 @@ import random
 
 
 시행_횟수 = 10000
+뽑는_인원 = 13
 살아남은_2등_인원 = 10
 로그_활성화 = False
 추가_점수공개_인원 = [
-    # "부산 B",
-    # "부산 C",
-    # "제주",
+    #    "부산 B",
+    #    "부산 C",
+    #   "제주",
 ]
 
 
-def run_game(살아남은_2등_인원: int) -> None:
+def main() -> None:
+
+    print(f"총 인원: {len(추가_점수공개_인원)+15}명 ")
+    print(f"1차 합격 인원: {뽑는_인원}명")
+    print(f"시행 횟수: {시행_횟수}")
+
+    for 인원 in range(살아남은_2등_인원 + 1):
+
+        run_game(살아남은_2등_인원=인원)
+
+    return
+
+
+def run_game(살아남은_2등_인원: int):
 
     유효_감지 = 0
     text_log = ""
@@ -26,10 +40,11 @@ def run_game(살아남은_2등_인원: int) -> None:
     if 로그_활성화 and len(text_log) > 1:
         print(text_log)
 
+    확률 = round(유효_감지 / 시행_횟수 * 100)
+
     print(
-        f"살아남은 2등 인원: 13명 중 {살아남은_2등_인원}명, 유효 감지: {유효_감지} ({round(유효_감지/시행_횟수*100)}%)"
+        f"살아남은 2등 인원: {뽑는_인원}명 중 {살아남은_2등_인원}명, 유효 감지: {유효_감지} ({확률}%)"
     )
-    return
 
 
 def play_once(살아남은_2등_인원: int):
@@ -76,7 +91,7 @@ def play_once(살아남은_2등_인원: int):
         if i % 5 == 0:
             text += "\n"
 
-        if i <= 13 and m[ballot] > 1:
+        if i <= 뽑는_인원 and m[ballot] > 1:
             cnt += 1
 
     if cnt == 살아남은_2등_인원:
@@ -87,10 +102,4 @@ def play_once(살아남은_2등_인원: int):
 
 if __name__ == "__main__":
 
-    print(f"총 인원: {len(추가_점수공개_인원)+15}명 ")
-    print("1차 합격 인원: 13명")
-    print(f"시행 횟수: {시행_횟수}")
-
-    for 인원 in range(살아남은_2등_인원 + 1):
-
-        run_game(살아남은_2등_인원=인원)
+    main()
