@@ -3,7 +3,7 @@ import random
 
 시행_횟수 = 10000
 뽑는_인원 = 13
-살아남은_2등_인원 = 10
+살아남은_2등_인원_상한 = 8
 로그_활성화 = False
 추가_점수공개_인원 = [
     # "부산 B",
@@ -18,14 +18,14 @@ def main() -> None:
     print(f"1차 합격 인원: {뽑는_인원}명")
     print(f"시행 횟수: {시행_횟수}")
 
-    for 인원 in range(살아남은_2등_인원 + 1):
+    for 인원 in range(살아남은_2등_인원_상한 + 1):
 
         run_game(살아남은_2등_인원=인원)
 
     return
 
 
-def run_game(살아남은_2등_인원: int):
+def run_game(살아남은_2등_인원: int) -> None:
 
     유효_감지 = 0
     text_log = ""
@@ -47,7 +47,7 @@ def run_game(살아남은_2등_인원: int):
     )
 
 
-def play_once(살아남은_2등_인원: int):
+def play_once(살아남은_2등_인원: int) -> tuple:
 
     ballots = [
         "경기의 외로운 사자",
@@ -77,11 +77,11 @@ def play_once(살아남은_2등_인원: int):
     i = 0
     text = "======\n"
     for ballot in sampled_ballots:
+        ballot = ballot[:2]
 
         i += 1
         text += f"{i}위: {ballot}"
 
-        ballot = ballot[:2]
         if ballot in m:
             m[ballot] += 1
             text += f" {m[ballot]}등"
